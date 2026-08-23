@@ -1,0 +1,42 @@
+{
+  "name": "complete-e-commerce",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-stack e-commerce with catalog filters, persistent cart, Stripe card and PIX checkout, admin stock, Resend emails and product variants, bilingual PT/EN.",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "tsx --test tests/*.test.ts",
+    "db:push": "prisma db push",
+    "db:seed": "tsx prisma/seed.ts",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.864.0",
+    "@prisma/client": "^6.13.0",
+    "cloudinary": "^2.7.0",
+    "framer-motion": "^12.23.12",
+    "next": "16.3.2",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "resend": "^6.0.1",
+    "stripe": "^18.4.0"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.2",
+    "prisma": "^6.13.0",
+    "tailwindcss": "^4",
+    "tsx": "^4.20.3",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,109 @@
+@import 'tailwindcss';
+
+:root {
+  --ink: #050505;
+  --ember: #ff7a00;
+  --amber: #ffaa00;
+  --paper: #f4e6c8;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #050505;
+  color: var(--paper);
+  font-family: Karla, system-ui, sans-serif;
+}
+
+.display {
+  font-family: 'Barlow Condensed', Karla, sans-serif;
+}
+
+.sky {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 18% -8%, rgba(255, 122, 0, 0.22), transparent 42%),
+    radial-gradient(ellipse at 88% 8%, rgba(255, 170, 0, 0.12), transparent 38%),
+    linear-gradient(180deg, #050505 0%, #120800 100%);
+}
+
+.ember {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(42px);
+  opacity: 0.42;
+  animation: drift 16s ease-in-out infinite;
+}
+
+.e1 {
+  width: 280px;
+  height: 280px;
+  background: #ff7a00;
+  top: 8%;
+  left: -40px;
+}
+
+.e2 {
+  width: 210px;
+  height: 210px;
+  background: #ffaa00;
+  top: 52%;
+  right: -24px;
+  animation-delay: -6s;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(18px, -24px, 0);
+  }
+}
+
+.field {
+  width: 100%;
+  border: 1px solid rgba(244, 230, 200, 0.18);
+  background: rgba(5, 5, 5, 0.55);
+  color: var(--paper);
+  padding: 0.7rem 0.85rem;
+  border-radius: 0.4rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ff7a00;
+  color: #050505;
+  font-weight: 700;
+  padding: 0.7rem 1.1rem;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #ffaa00;
+}
+
+.card {
+  border: 1px solid rgba(244, 230, 200, 0.14);
+  background: rgba(5, 5, 5, 0.45);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ember {
+    animation: none;
+  }
+}
