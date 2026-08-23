@@ -1,21 +1,22 @@
 # 🛒 Complete E-Commerce
 
-> A bilingual atelier storefront with filtered catalogue, colour and size variants, a persistent cart, Stripe card and PIX checkout, Resend receipts and an admin desk for stock, painted in the ividi.dev palette (black, burnt orange, amber).
+> A bilingual photographic supply house in Cascais: film, serviced cameras, optics, darkroom paper and signed prints, with collections, a persistent cart, Stripe card and PIX checkout, Resend receipts and an admin desk, painted in the ividi.dev palette (black, burnt orange, amber).
 
 [🐞 Report Bug](https://github.com/VidiPT89/CompleteE-Commerce/issues) · [✨ Request Feature](https://github.com/VidiPT89/CompleteE-Commerce/issues)
 
-FORJA is a Next.js shop for pieces that already have a cut and a colour. Browse by name, category, colour or size, keep the cart in PostgreSQL behind a cookie, pay with Stripe test cards or a PIX payload, and run the atelier from an admin desk. Images go to Amazon S3 or Cloudinary when those keys are set; otherwise they stay on disk. Mail goes through Resend when configured, or into an `EmailLog` table. The UI is European Portuguese / English, with the language toggle remembered in `localStorage`.
+FORJA is a Next.js shop built like a small lab. The catalogue is organised into collections (film, cameras, optics, darkroom, prints). Each product has a photographic gallery, finish and format variants, SKU and stock. The cart lives in PostgreSQL behind a cookie. Checkout collects a shipping address and pays with Stripe test cards or a PIX payload. Images go to Amazon S3 or Cloudinary when those keys are set; otherwise they stay on disk. Mail goes through Resend when configured, or into an `EmailLog` table. The UI is European Portuguese / English, with the language toggle remembered in `localStorage`.
 
 ## ✨ Main Features
 
-- 🔎 **Catalogue** — search plus filters for category, colour and size
-- 🎨 **Variants** — colour and size with SKU, price and stock
+- 📷 **Photographic catalogue** — film, cameras, optics, darkroom, signed prints
+- 🗂 **Collections** — dedicated shop filters and collection pages
+- 🖼 **Galleries** — several photographs per product, finish and format variants
 - 🛒 **Persistent cart** — cookie + PostgreSQL, survives a refresh
-- 💳 **Checkout** — Stripe Checkout (card) or PIX copy payload
+- 📦 **Checkout** — shipping address, Stripe card or PIX, sequential order numbers
 - 🛠️ **Admin desk** — products, orders and stock, photo upload
 - ✉️ **Transactional mail** — Resend order receipts (logged when no key)
 - 🌍 **PT / EN toggle** — remembered in `localStorage`
-- 🎬 **Motion** — ember glow and staggered product cards
+- 🎬 **Motion** — grain, ember glow and staggered collection cards
 
 ## 🛠️ Technologies
 
@@ -87,16 +88,17 @@ Stripe, Cloudinary, S3 and Resend are optional. Leave those keys empty to comple
 ## 📖 Usage
 
 1. Toggle **PT** or **EN** in the header.
-2. Filter the seeded atelier by search, category, colour or size.
-3. Open a piece, pick a variant, add it to the cart.
-4. Pay with Stripe (card) or copy the PIX payload.
-5. Adjust stock and catalogue from **Admin**.
+2. Open **Catalogue** and filter by collection, finish or format, or search by brand.
+3. Open a product, switch gallery frames, pick a variant, add it to the cart.
+4. Checkout with a Cascais-style address and pay by card or PIX.
+5. Run stock and orders from **Admin**.
 
 ## 🔌 API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/api/products?q=&category=&color=&size=` | Search the catalogue |
+| GET | `/api/collections` | Lab collections |
+| GET | `/api/products?q=&collection=&finish=&format=` | Search the catalogue |
 | GET / POST / PATCH / DELETE | `/api/cart` | Persistent cart |
 | POST | `/api/checkout` | Card or PIX checkout |
 | POST | `/api/webhooks/stripe` | Mark an order paid |

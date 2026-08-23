@@ -29,12 +29,18 @@ export async function POST(request: Request) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '')
+  const collection =
+    (await prisma.collection.findFirst({ where: { slug: body.category || 'film' } })) ??
+    (await prisma.collection.findFirst())
+  if (!collection) return NextResponse.json({ error: 'collection' }, { status: 400 })
   const product = await prisma.product.create({
     data: {
       slug: `${slug}-${Date.now().toString(36)}`,
+      brand: 'FORJA',
       name: body.name || 'Peça',
       nameEn: body.nameEn || body.name || 'Piece',
-      category: body.category || 'accessories',
+      category: body.category || collection.slug,
+      collectionId: collection.id,
       description: body.description || '',
       descriptionEn: body.description || '',
       imageUrl: body.imageUrl || '/uploads/.gitkeep',
@@ -43,8 +49,8 @@ export async function POST(request: Request) {
         create: [
           {
             sku: body.sku || `SKU-${Date.now()}`,
-            color: body.color || 'black',
-            size: body.size || 'OS',
+            finish: body.color || 'black',
+            format: body.size || 'OS',
             priceCents: Number(body.priceCents || 0),
             stock: Number(body.stock || 0),
           },

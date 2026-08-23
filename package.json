@@ -2,7 +2,7 @@
   "name": "complete-e-commerce",
   "version": "1.0.0",
   "private": true,
-  "description": "Full-stack e-commerce with catalog filters, persistent cart, Stripe card and PIX checkout, admin stock, Resend emails and product variants, bilingual PT/EN.",
+  "description": "Photographic supply e-commerce with collections, galleries, persistent cart, Stripe card and PIX checkout, admin stock and Resend emails, bilingual PT/EN.",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "prisma generate && next build",

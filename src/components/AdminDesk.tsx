@@ -4,15 +4,16 @@ import { formatEuro } from '@/lib/catalog'
 import { useLocale } from '@/i18n/LocaleProvider'
 import { useEffect, useState } from 'react'
 
-type Variant = { id: string; sku: string; color: string; size: string; priceCents: number; stock: number }
-type Product = { id: string; name: string; nameEn: string; category: string; variants: Variant[] }
+type Variant = { id: string; sku: string; finish: string; format: string; priceCents: number; stock: number }
+type Product = { id: string; name: string; nameEn: string; brand: string; category: string; variants: Variant[] }
 type Order = {
   id: string
+  number: string
   email: string
+  fullName: string
   totalCents: number
   method: string
   status: string
-  createdAt: string
 }
 
 export function AdminDesk() {
@@ -25,7 +26,7 @@ export function AdminDesk() {
   const [form, setForm] = useState({
     name: '',
     nameEn: '',
-    category: 'accessories',
+    category: 'film',
     sku: '',
     color: 'black',
     size: 'OS',
@@ -158,9 +159,11 @@ export function AdminDesk() {
         <div className="space-y-3">
           {orders.map((order) => (
             <article key={order.id} className="card p-4">
-              <p className="text-[#ffaa00]">{order.email}</p>
+              <p className="text-[#ffaa00]">
+                {order.number} · {order.fullName}
+              </p>
               <p className="text-sm">
-                {formatEuro(order.totalCents, locale)} · {order.method} · {order.status}
+                {order.email} · {formatEuro(order.totalCents, locale)} · {order.method} · {order.status}
               </p>
             </article>
           ))}
@@ -174,7 +177,7 @@ export function AdminDesk() {
               <article key={variant.id} className="card flex items-center gap-3 p-4">
                 <div className="flex-1">
                   <p>
-                    {product.name} · {variant.color} · {variant.size}
+                    {product.name} · {variant.finish} · {variant.format}
                   </p>
                   <p className="text-xs text-[#f4e6c8]/55">{variant.sku}</p>
                 </div>

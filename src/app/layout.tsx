@@ -16,8 +16,8 @@ const body = Karla({
 })
 
 export const metadata: Metadata = {
-  title: 'FORJA — Complete E-Commerce',
-  description: 'Catalogue, persistent cart, Stripe card and PIX checkout, admin stock and Resend receipts.',
+  title: 'FORJA Lab',
+  description: 'Photographic supply and print lab in Cascais: film, cameras, optics, darkroom and signed prints.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -29,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <span className="ember e1" />
             <span className="ember e2" />
           </div>
+          <div className="grain" aria-hidden />
           <SiteChrome>{children}</SiteChrome>
         </Providers>
       </body>

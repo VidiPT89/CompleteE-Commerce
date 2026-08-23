@@ -7,8 +7,8 @@ export type CartLine = {
   variantId: string
   quantity: number
   sku: string
-  color: string
-  size: string
+  finish: string
+  format: string
   priceCents: number
   stock: number
   slug: string

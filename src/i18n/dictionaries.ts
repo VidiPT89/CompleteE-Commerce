@@ -4,19 +4,25 @@ export type Dictionary = {
   brand: string
   tagline: string
   browse: string
+  collections: string
+  atelier: string
   cart: string
   admin: string
   developed: string
   search: string
   all: string
-  color: string
-  size: string
+  finish: string
+  format: string
   add: string
   added: string
   stock: string
   empty: string
   checkout: string
   email: string
+  fullName: string
+  address: string
+  city: string
+  postal: string
   card: string
   pix: string
   pay: string
@@ -33,42 +39,50 @@ export type Dictionary = {
   name: string
   nameEn: string
   category: string
-  image: string
   sku: string
   price: string
-  qty: string
-  method: string
-  status: string
   heroLead: string
   heroCopy: string
   shop: string
   out: string
   variant: string
+  continue: string
+  shipping: string
+  payment: string
+  related: string
+  edition: string
+  labCopy: string
 }
 
 export const dictionaries: Record<Locale, Dictionary> = {
   pt: {
     brand: 'FORJA',
-    tagline: 'Peças com peso, cor de brasa',
-    browse: 'Loja',
+    tagline: 'Laboratório e material fotográfico, Cascais',
+    browse: 'Catálogo',
+    collections: 'Colecções',
+    atelier: 'O laboratório',
     cart: 'Carrinho',
     admin: 'Admin',
     developed: 'Developed by David Arsénio Martins',
-    search: 'Busca por nome ou categoria',
+    search: 'Película, câmara, marca…',
     all: 'Tudo',
-    color: 'Cor',
-    size: 'Tamanho',
+    finish: 'Acabamento',
+    format: 'Formato',
     add: 'Adicionar ao carrinho',
     added: 'No carrinho',
     stock: 'em stock',
     empty: 'O carrinho está vazio.',
     checkout: 'Checkout',
     email: 'E-mail',
+    fullName: 'Nome completo',
+    address: 'Morada',
+    city: 'Cidade',
+    postal: 'Código postal',
     card: 'Cartão (Stripe)',
     pix: 'PIX',
     pay: 'Pagar',
     success: 'Encomenda confirmada',
-    successBody: 'Enviámos o recibo para o e-mail da encomenda. O stock já foi descontado.',
+    successBody: 'O laboratório recebeu o pedido. O recibo segue para o e-mail e o stock já foi descontado.',
     login: 'Entrar',
     password: 'Palavra-passe',
     products: 'Produtos',
@@ -76,45 +90,54 @@ export const dictionaries: Record<Locale, Dictionary> = {
     stockCol: 'Stock',
     save: 'Guardar',
     logout: 'Sair',
-    newProduct: 'Novo produto',
+    newProduct: 'Novo artigo',
     name: 'Nome',
     nameEn: 'Nome EN',
-    category: 'Categoria',
-    image: 'Imagem',
+    category: 'Colecção',
     sku: 'SKU',
-    price: 'Preço',
-    qty: 'Qtd',
-    method: 'Método',
-    status: 'Estado',
-    heroLead: 'Atelier nocturno',
+    price: 'Preço (cêntimos)',
+    heroLead: 'Desde 16 anos de rua',
     heroCopy:
-      'Catálogo com filtros, variantes de cor e tamanho, carrinho persistente e checkout com cartão ou PIX.',
-    shop: 'Ver catálogo',
+      'Película, corpos revistos, óptica, papel de quarto escuro e provas assinadas. O mesmo olhar que esteve no fotojornalismo, agora numa loja com stock, variantes e checkout a sério.',
+    shop: 'Abrir o catálogo',
     out: 'Esgotado',
-    variant: 'Escolhe cor e tamanho',
+    variant: 'Acabamento e formato',
+    continue: 'Seguir para checkout',
+    shipping: 'Envio',
+    payment: 'Pagamento',
+    related: 'Na mesma colecção',
+    edition: 'Edição',
+    labCopy:
+      'A FORJA é um laboratório pequeno em Cascais: bancada de revelação, arquivo de negativos e uma prateleira de material escolhido à mão. Cada corpo passa pela revisão. Cada prova sai com margem e lápis.',
   },
   en: {
     brand: 'FORJA',
-    tagline: 'Heavy pieces, ember colour',
-    browse: 'Shop',
+    tagline: 'Photographic lab and supply, Cascais',
+    browse: 'Catalogue',
+    collections: 'Collections',
+    atelier: 'The lab',
     cart: 'Cart',
     admin: 'Admin',
     developed: 'Developed by David Arsénio Martins',
-    search: 'Search by name or category',
+    search: 'Film, camera, brand…',
     all: 'All',
-    color: 'Colour',
-    size: 'Size',
+    finish: 'Finish',
+    format: 'Format',
     add: 'Add to cart',
     added: 'In cart',
     stock: 'in stock',
     empty: 'The cart is empty.',
     checkout: 'Checkout',
     email: 'Email',
+    fullName: 'Full name',
+    address: 'Address',
+    city: 'City',
+    postal: 'Postal code',
     card: 'Card (Stripe)',
     pix: 'PIX',
     pay: 'Pay',
     success: 'Order confirmed',
-    successBody: 'A receipt was sent to the order email. Stock has already been deducted.',
+    successBody: 'The lab has the order. A receipt goes to the email and stock has already been deducted.',
     login: 'Sign in',
     password: 'Password',
     products: 'Products',
@@ -122,20 +145,24 @@ export const dictionaries: Record<Locale, Dictionary> = {
     stockCol: 'Stock',
     save: 'Save',
     logout: 'Sign out',
-    newProduct: 'New product',
+    newProduct: 'New item',
     name: 'Name',
     nameEn: 'Name EN',
-    category: 'Category',
-    image: 'Image',
+    category: 'Collection',
     sku: 'SKU',
-    price: 'Price',
-    qty: 'Qty',
-    method: 'Method',
-    status: 'Status',
-    heroLead: 'Night atelier',
-    heroCopy: 'Filtered catalogue, colour and size variants, a persistent cart, and checkout by card or PIX.',
-    shop: 'See the catalogue',
+    price: 'Price (cents)',
+    heroLead: 'From 16 years on the street',
+    heroCopy:
+      'Film, serviced bodies, optics, darkroom paper and signed prints. The same eye that worked in photojournalism, now in a shop with stock, variants and a serious checkout.',
+    shop: 'Open the catalogue',
     out: 'Sold out',
-    variant: 'Pick colour and size',
+    variant: 'Finish and format',
+    continue: 'Continue to checkout',
+    shipping: 'Shipping',
+    payment: 'Payment',
+    related: 'In the same collection',
+    edition: 'Edition',
+    labCopy:
+      'FORJA is a small lab in Cascais: a developing bench, a negative archive and a shelf of material chosen by hand. Every body is serviced. Every print leaves with a margin and a pencil.',
   },
 }

@@ -1,5 +1,5 @@
-import { CatalogDesk } from '@/components/CatalogDesk'
+import { HomeDesk } from '@/components/HomeDesk'
 
 export default function HomePage() {
-  return <CatalogDesk />
+  return <HomeDesk />
 }

@@ -19,15 +19,15 @@ export async function sendMail(input: { kind: string; to: string; subject: strin
   return delivered
 }
 
-export function orderMail(locale: string, orderId: string, total: string, method: string) {
+export function orderMail(locale: string, orderNumber: string, total: string, method: string) {
   if (locale === 'en') {
     return {
-      subject: `FORJA order ${orderId.slice(0, 8)}`,
-      body: `Thank you. Order ${orderId} is confirmed (${method}). Total ${total}.\n\nDeveloped by David Arsénio Martins\nhttps://ividi.dev/\nhttps://github.com/VidiPT89/`,
+      subject: `FORJA order ${orderNumber}`,
+      body: `Thank you. Order ${orderNumber} is confirmed (${method}). Total ${total}.\n\nDeveloped by David Arsénio Martins\nhttps://ividi.dev/\nhttps://github.com/VidiPT89/`,
     }
   }
   return {
-    subject: `Encomenda FORJA ${orderId.slice(0, 8)}`,
-    body: `Obrigado. A encomenda ${orderId} está confirmada (${method}). Total ${total}.\n\nDeveloped by David Arsénio Martins\nhttps://ividi.dev/\nhttps://github.com/VidiPT89/`,
+    subject: `Encomenda FORJA ${orderNumber}`,
+    body: `Obrigado. A encomenda ${orderNumber} está confirmada (${method}). Total ${total}.\n\nDeveloped by David Arsénio Martins\nhttps://ividi.dev/\nhttps://github.com/VidiPT89/`,
   }
 }

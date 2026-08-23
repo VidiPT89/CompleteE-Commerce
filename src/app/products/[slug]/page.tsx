@@ -6,8 +6,13 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params
   const product = await prisma.product.findUnique({
     where: { slug },
-    include: { variants: true },
+    include: { variants: true, images: { orderBy: { sortOrder: 'asc' } }, collection: true },
   })
   if (!product) notFound()
-  return <ProductDesk product={product} />
+  const related = await prisma.product.findMany({
+    where: { collectionId: product.collectionId, NOT: { id: product.id } },
+    include: { variants: true, images: true, collection: true },
+    take: 3,
+  })
+  return <ProductDesk product={product} related={related} />
 }

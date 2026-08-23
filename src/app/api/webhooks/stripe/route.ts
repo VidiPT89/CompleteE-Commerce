@@ -31,7 +31,7 @@ export async function POST(request: Request) {
     ),
   ])
 
-  const copy = orderMail('pt', order.id, formatEuro(order.totalCents, 'pt'), order.method)
+  const copy = orderMail('pt', order.number, formatEuro(order.totalCents, 'pt'), order.method)
   await sendMail({ kind: 'order', to: order.email, ...copy })
   return NextResponse.json({ received: true })
 }

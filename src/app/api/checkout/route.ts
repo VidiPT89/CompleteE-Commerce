@@ -1,20 +1,34 @@
 import { cartPayload, getCartId } from '@/lib/cart'
-import { formatEuro } from '@/lib/catalog'
+import { formatEuro, nextOrderNumber } from '@/lib/catalog'
 import { orderMail, sendMail } from '@/lib/mail'
 import { prisma } from '@/lib/prisma'
 import { getStripe } from '@/lib/stripe'
 import { NextResponse } from 'next/server'
 
 function pixPayload(orderId: string, cents: number) {
-  return `00020126360014BR.GOV.BCB.PIX0114forja@ividi.dev520400005303986540${(cents / 100).toFixed(2)}5802PT5913FORJA ATELIER6007Cascais62070503***6304${orderId.slice(0, 4).toUpperCase()}`
+  return `00020126360014BR.GOV.BCB.PIX0114forja@ividi.dev520400005303986540${(cents / 100).toFixed(2)}5802PT5913FORJA LAB6007Cascais62070503***6304${orderId.slice(0, 4).toUpperCase()}`
 }
 
 export async function POST(request: Request) {
-  const body = (await request.json()) as { email?: string; method?: 'card' | 'pix'; locale?: string }
+  const body = (await request.json()) as {
+    email?: string
+    fullName?: string
+    address?: string
+    city?: string
+    postal?: string
+    method?: 'card' | 'pix'
+    locale?: string
+  }
   const email = body.email?.trim().toLowerCase() ?? ''
+  const fullName = body.fullName?.trim() ?? ''
+  const address = body.address?.trim() ?? ''
+  const city = body.city?.trim() ?? ''
+  const postal = body.postal?.trim() ?? ''
   const method = body.method === 'pix' ? 'pix' : 'card'
   const locale = body.locale === 'en' ? 'en' : 'pt'
-  if (!email) return NextResponse.json({ error: 'invalid' }, { status: 400 })
+  if (!email || !fullName || !address || !city || !postal) {
+    return NextResponse.json({ error: 'invalid' }, { status: 400 })
+  }
 
   const cartId = await getCartId()
   const cart = await cartPayload(cartId)
@@ -29,12 +43,17 @@ export async function POST(request: Request) {
   const origin = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
   const stripe = getStripe()
   const currency = method === 'pix' ? 'brl' : 'eur'
-  const totalCents =
-    method === 'pix' ? Math.round(cart.totalCents * 5.5) : cart.totalCents
+  const totalCents = method === 'pix' ? Math.round(cart.totalCents * 5.5) : cart.totalCents
+  const count = await prisma.order.count()
 
   const order = await prisma.order.create({
     data: {
+      number: nextOrderNumber(count + 1),
       email,
+      fullName,
+      address,
+      city,
+      postal,
       totalCents,
       currency,
       method,
@@ -44,8 +63,8 @@ export async function POST(request: Request) {
         create: cart.items.map((item) => ({
           variantId: item.variantId,
           title: item.name,
-          color: item.color,
-          size: item.size,
+          finish: item.finish,
+          format: item.format,
           priceCents: item.priceCents,
           quantity: item.quantity,
         })),
@@ -63,7 +82,7 @@ export async function POST(request: Request) {
       ),
     )
     await prisma.cartItem.deleteMany({ where: { cartId } })
-    const copy = orderMail(locale, order.id, formatEuro(cart.totalCents, locale), method)
+    const copy = orderMail(locale, order.number, formatEuro(cart.totalCents, locale), method)
     await sendMail({ kind: 'order', to: email, ...copy })
   }
 
@@ -71,6 +90,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       url: `${origin}/checkout/success?order=${order.id}`,
       pixCode: order.pixCode,
+      number: order.number,
     })
   }
 
@@ -82,15 +102,16 @@ export async function POST(request: Request) {
     mode: 'payment',
     customer_email: email,
     success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/cart`,
+    cancel_url: `${origin}/checkout`,
     metadata: { orderId: order.id },
     payment_method_types: ['card'],
+    shipping_address_collection: { allowed_countries: ['PT', 'ES', 'FR', 'GB', 'DE', 'BR'] },
     line_items: cart.items.map((item) => ({
       quantity: item.quantity,
       price_data: {
         currency: 'eur',
         unit_amount: item.priceCents,
-        product_data: { name: `${item.name} · ${item.color} · ${item.size}` },
+        product_data: { name: `${item.name} · ${item.finish} · ${item.format}` },
       },
     })),
   })
