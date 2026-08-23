@@ -29,7 +29,7 @@ export function CollectionsDesk() {
   return (
     <div>
       <h1 className="display text-6xl uppercase text-[#ffaa00]">{t.collections}</h1>
-      <div className="mt-8 grid gap-5 md:grid-cols-2">
+      <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {collections.map((collection) => (
           <Link key={collection.slug} href={`/shop?collection=${collection.slug}`} className="card group">
             <div className="relative h-64 overflow-hidden">

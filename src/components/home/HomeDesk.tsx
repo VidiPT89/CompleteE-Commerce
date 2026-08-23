@@ -50,20 +50,20 @@ export function HomeDesk() {
             {t.brand}
           </h1>
           <p className="mt-6 max-w-lg text-lg text-[#f4e6c8]/80">{t.heroCopy}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link href="/shop" className="btn">
               {t.shop}
               <span className="grid h-8 w-8 place-items-center rounded-full bg-black/15">↗</span>
             </Link>
-            <Link href="/atelier" className="rounded-full border border-[#f4e6c8]/20 px-5 py-3 text-sm">
+            <Link href="/atelier" className="btn-ghost">
               {t.atelier}
             </Link>
           </div>
         </div>
         <div className="shell">
-          <div className="relative min-h-[420px] overflow-hidden rounded-[1.1rem]">
-            <Photo src="/photos/hero.jpg" alt="" className="object-cover" sizes="50vw" priority />
-            <p className="absolute bottom-4 left-4 text-xs uppercase tracking-[0.22em] text-[#f4e6c8]">
+          <div className="relative h-[28rem] overflow-hidden rounded-[1.1rem]">
+            <Photo src="/photos/hero.jpg" alt="Câmara na bancada da FORJA" className="object-cover" priority />
+            <p className="absolute bottom-4 left-4 z-10 text-xs uppercase tracking-[0.22em] text-[#f4e6c8]">
               Rua · Cascais
             </p>
           </div>

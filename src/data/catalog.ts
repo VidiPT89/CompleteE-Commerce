@@ -59,13 +59,31 @@ export const collections: SeedCollection[] = [
     sortOrder: 3,
   },
   {
+    slug: 'digital',
+    name: 'Digital',
+    nameEn: 'Digital',
+    lead: 'Corpos mirrorless para agência, rua e estúdio.',
+    leadEn: 'Mirrorless bodies for agency, street and studio.',
+    imageUrl: '/photos/camera-nikon.jpg',
+    sortOrder: 4,
+  },
+  {
+    slug: 'accessories',
+    name: 'Acessórios',
+    nameEn: 'Accessories',
+    lead: 'Cartões, correias, flash e o resto da mochila.',
+    leadEn: 'Cards, straps, flash and the rest of the bag.',
+    imageUrl: '/photos/camera-hand.jpg',
+    sortOrder: 5,
+  },
+  {
     slug: 'film',
     name: 'Película',
     nameEn: 'Film',
     lead: 'Rolos 35 mm e 120, caixa a caixa.',
     leadEn: '35 mm and 120 rolls, box by box.',
     imageUrl: '/photos/film-roll.jpg',
-    sortOrder: 4,
+    sortOrder: 6,
   },
 ]
 
@@ -271,8 +289,8 @@ export const products: SeedProduct[] = [
       'O 400 da bancada europeia. Empurra-se a 1600 no protesto, revela-se em D-76 1+1.',
     descriptionEn:
       'The European bench 400. Push it to 1600 at a protest, develop it in D-76 1+1.',
-    imageUrl: '/photos/lab.jpg',
-    images: ['/photos/lab.jpg', '/photos/film-roll.jpg'],
+    imageUrl: '/photos/darkroom.jpg',
+    images: ['/photos/darkroom.jpg', '/photos/enlarger-durst.jpg', '/photos/film-roll.jpg'],
     variants: [
       { sku: 'IL-HP5-36', finish: 'black-box', format: '36exp', priceCents: 890, stock: 50 },
     ],
@@ -293,6 +311,94 @@ export const products: SeedProduct[] = [
     variants: [
       { sku: 'FJ-CD-A3', finish: 'baryta', format: 'A3', priceCents: 18000, stock: 12 },
       { sku: 'FJ-CD-A2', finish: 'baryta', format: 'A2', priceCents: 32000, stock: 8 },
+    ],
+  },
+  {
+    slug: 'sony-a7iv',
+    brand: 'Sony',
+    name: 'A7 IV · corpo',
+    nameEn: 'A7 IV · body',
+    category: 'cameras',
+    collection: 'digital',
+    description:
+      'O corpo digital de agência: 33 MP, dois slots, AF que segura um rosto no scramble. Entregue revisto, obturador contado.',
+    descriptionEn:
+      'The digital agency body: 33 MP, dual slots, AF that holds a face in a scramble. Handed over serviced, shutter counted.',
+    imageUrl: '/photos/camera-nikon.jpg',
+    images: ['/photos/camera-nikon.jpg', '/photos/hero.jpg', '/photos/press.jpg'],
+    variants: [
+      { sku: 'SY-A7IV-BDY', finish: 'black', format: 'body', priceCents: 239900, stock: 3 },
+    ],
+  },
+  {
+    slug: 'canon-r5',
+    brand: 'Canon',
+    name: 'EOS R5 · corpo',
+    nameEn: 'EOS R5 · body',
+    category: 'cameras',
+    collection: 'digital',
+    description:
+      '45 MP para a página inteira. IBIS, vídeo quando a mesa pede, o mesmo grip que o 70-200 já conhece.',
+    descriptionEn:
+      '45 MP for a full page. IBIS, video when the desk asks, the same grip the 70-200 already knows.',
+    imageUrl: '/photos/hero.jpg',
+    images: ['/photos/hero.jpg', '/photos/camera-table.jpg'],
+    variants: [
+      { sku: 'CN-R5-BDY', finish: 'black', format: 'body', priceCents: 369900, stock: 2 },
+    ],
+  },
+  {
+    slug: 'peak-everyday',
+    brand: 'Peak Design',
+    name: 'Everyday Messenger 13L',
+    nameEn: 'Everyday Messenger 13L',
+    category: 'accessories',
+    collection: 'accessories',
+    description:
+      'A mala de rua: um corpo, duas lentes, um portátil. Abre de lado no passeio sem despejar o resto.',
+    descriptionEn:
+      'The street bag: one body, two lenses, a laptop. Opens from the side on the pavement without spilling the rest.',
+    imageUrl: '/photos/camera-hand.jpg',
+    images: ['/photos/camera-hand.jpg', '/photos/street-city.jpg'],
+    variants: [
+      { sku: 'PD-MSG-13-BLK', finish: 'black', format: '13L', priceCents: 22900, stock: 8 },
+      { sku: 'PD-MSG-13-ASH', finish: 'ash', format: '13L', priceCents: 22900, stock: 4 },
+    ],
+  },
+  {
+    slug: 'godox-v1',
+    brand: 'Godox',
+    name: 'V1 Pro · flash',
+    nameEn: 'V1 Pro · flash',
+    category: 'accessories',
+    collection: 'accessories',
+    description:
+      'Cabeça redonda, TTL, a luz de preenchimento que o fotojornalismo ainda usa quando o teto some.',
+    descriptionEn:
+      'Round head, TTL, the fill light photojournalism still uses when the ceiling disappears.',
+    imageUrl: '/photos/camera-table.jpg',
+    images: ['/photos/camera-table.jpg', '/photos/hero.jpg'],
+    variants: [
+      { sku: 'GX-V1-CAN', finish: 'black', format: 'Canon', priceCents: 28900, stock: 6 },
+      { sku: 'GX-V1-NIK', finish: 'black', format: 'Nikon', priceCents: 28900, stock: 5 },
+      { sku: 'GX-V1-SON', finish: 'black', format: 'Sony', priceCents: 28900, stock: 4 },
+    ],
+  },
+  {
+    slug: 'sandisk-cfexpress',
+    brand: 'SanDisk',
+    name: 'CFexpress Type B 256 GB',
+    nameEn: 'CFexpress Type B 256 GB',
+    category: 'accessories',
+    collection: 'accessories',
+    description:
+      'O cartão que aguenta 40 fps no R6 II e no Z9. Dois na mochila, sempre.',
+    descriptionEn:
+      'The card that holds 40 fps on the R6 II and the Z9. Two in the bag, always.',
+    imageUrl: '/photos/tele.jpg',
+    images: ['/photos/tele.jpg', '/photos/lens.jpg'],
+    variants: [
+      { sku: 'SD-CFE-256', finish: 'black', format: '256GB', priceCents: 18900, stock: 14 },
     ],
   },
 ]

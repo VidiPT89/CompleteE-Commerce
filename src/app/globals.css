@@ -107,8 +107,26 @@ body {
   background: #ffaa00;
 }
 
-.btn:active {
-  transform: scale(0.98);
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  background: transparent;
+  color: var(--paper);
+  font-weight: 700;
+  padding: 0.8rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(244, 230, 200, 0.22);
+  cursor: pointer;
+  line-height: 1;
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1), border-color 0.35s cubic-bezier(0.32, 0.72, 0, 1),
+    color 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.btn-ghost:hover {
+  border-color: #ff7a00;
+  color: #ffaa00;
 }
 
 .shell {

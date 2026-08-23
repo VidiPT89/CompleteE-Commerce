@@ -18,8 +18,11 @@ export function AtelierDesk() {
         </Link>
       </div>
       <div className="shell">
-        <div className="relative min-h-[420px] overflow-hidden rounded-[1.05rem]">
-          <Photo src="/photos/lab.jpg" alt="" className="object-cover" sizes="50vw" />
+        <div className="relative h-[28rem] overflow-hidden rounded-[1.05rem]">
+          <Photo src="/photos/darkroom.jpg" alt="Quarto escuro: ampliadora, luz de segurança e tinas" className="object-cover" />
+          <p className="absolute bottom-4 left-4 z-10 text-xs uppercase tracking-[0.22em] text-[#f4e6c8]">
+            Quarto escuro · FORJA
+          </p>
         </div>
       </div>
     </div>
