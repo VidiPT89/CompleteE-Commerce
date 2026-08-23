@@ -1,4 +1,4 @@
-import { ProductDesk } from '@/components/ProductDesk'
+import { ProductDesk } from '@/components/product/ProductDesk'
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 

@@ -1,7 +1,8 @@
 'use client'
 
+import { Photo } from '@/components/ui/Photo'
+import { readJson } from '@/lib/http'
 import { useLocale } from '@/i18n/LocaleProvider'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -19,7 +20,10 @@ export function CollectionsDesk() {
   const [collections, setCollections] = useState<Collection[]>([])
 
   useEffect(() => {
-    void fetch('/api/collections').then(async (res) => setCollections((await res.json()) as Collection[]))
+    void fetch('/api/collections').then(async (res) => {
+      const data = await readJson<Collection[]>(res, [])
+      setCollections(Array.isArray(data) ? data : [])
+    })
   }, [])
 
   return (
@@ -29,10 +33,9 @@ export function CollectionsDesk() {
         {collections.map((collection) => (
           <Link key={collection.slug} href={`/shop?collection=${collection.slug}`} className="card group">
             <div className="relative h-64 overflow-hidden">
-              <Image
+              <Photo
                 src={collection.imageUrl}
                 alt=""
-                fill
                 className="object-cover transition duration-700 group-hover:scale-[1.04]"
                 sizes="50vw"
               />

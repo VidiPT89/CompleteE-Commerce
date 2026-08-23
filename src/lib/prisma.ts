@@ -1,7 +1,18 @@
 import { PrismaClient } from '@prisma/client'
 
-const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient }
+const globalForPrisma = globalThis as unknown as {
+  prisma?: PrismaClient
+  prismaStamp?: string
+}
 
-export const prisma = globalForPrisma.prisma ?? new PrismaClient()
+const STAMP = 'forja-lab-v1'
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+export const prisma =
+  globalForPrisma.prismaStamp === STAMP && globalForPrisma.prisma
+    ? globalForPrisma.prisma
+    : new PrismaClient()
+
+if (process.env.NODE_ENV !== 'production') {
+  globalForPrisma.prisma = prisma
+  globalForPrisma.prismaStamp = STAMP
+}

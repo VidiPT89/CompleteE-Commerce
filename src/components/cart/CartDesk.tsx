@@ -1,9 +1,9 @@
 'use client'
 
+import { Photo } from '@/components/ui/Photo'
 import { formatEuro } from '@/lib/catalog'
 import { useCart } from '@/lib/cart-client'
 import { useLocale } from '@/i18n/LocaleProvider'
-import Image from 'next/image'
 import Link from 'next/link'
 
 export function CartDesk() {
@@ -19,7 +19,7 @@ export function CartDesk() {
         {items.map((item) => (
           <article key={item.id} className="card flex gap-4 p-3">
             <div className="relative h-28 w-24 shrink-0 overflow-hidden rounded-lg">
-              <Image src={item.imageUrl} alt="" fill className="object-cover" sizes="96px" />
+              <Photo src={item.imageUrl} alt="" className="object-cover" sizes="96px" />
             </div>
             <div className="flex-1">
               <h2 className="display text-xl uppercase">{locale === 'en' ? item.nameEn : item.name}</h2>

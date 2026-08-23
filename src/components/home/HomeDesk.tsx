@@ -1,8 +1,9 @@
 'use client'
 
+import { Photo } from '@/components/ui/Photo'
+import { readJson } from '@/lib/http'
 import { useLocale } from '@/i18n/LocaleProvider'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -30,10 +31,13 @@ export function HomeDesk() {
   const [featured, setFeatured] = useState<Product[]>([])
 
   useEffect(() => {
-    void fetch('/api/collections').then(async (res) => setCollections((await res.json()) as Collection[]))
+    void fetch('/api/collections').then(async (res) => {
+      const data = await readJson<Collection[]>(res, [])
+      setCollections(Array.isArray(data) ? data : [])
+    })
     void fetch('/api/products').then(async (res) => {
-      const all = (await res.json()) as Product[]
-      setFeatured(all.slice(0, 4))
+      const all = await readJson<Product[]>(res, [])
+      setFeatured(Array.isArray(all) ? all.slice(0, 4) : [])
     })
   }, [])
 
@@ -58,16 +62,9 @@ export function HomeDesk() {
         </div>
         <div className="shell">
           <div className="relative min-h-[420px] overflow-hidden rounded-[1.1rem]">
-            <Image
-              src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1600&q=80"
-              alt=""
-              fill
-              className="object-cover"
-              sizes="50vw"
-              priority
-            />
+            <Photo src="/photos/hero.jpg" alt="" className="object-cover" sizes="50vw" priority />
             <p className="absolute bottom-4 left-4 text-xs uppercase tracking-[0.22em] text-[#f4e6c8]">
-              FM2n · Cascais
+              Rua · Cascais
             </p>
           </div>
         </div>
@@ -86,10 +83,9 @@ export function HomeDesk() {
             >
               <Link href={`/shop?collection=${collection.slug}`} className="card group block">
                 <div className="relative h-48 overflow-hidden">
-                  <Image
+                  <Photo
                     src={collection.imageUrl}
                     alt=""
-                    fill
                     className="object-cover transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
                     sizes="33vw"
                   />
@@ -119,10 +115,9 @@ export function HomeDesk() {
           {featured.map((product) => (
             <Link key={product.slug} href={`/products/${product.slug}`} className="card group">
               <div className="relative h-56 overflow-hidden">
-                <Image
+                <Photo
                   src={product.imageUrl}
                   alt=""
-                  fill
                   className="object-cover transition duration-700 group-hover:scale-[1.04]"
                   sizes="25vw"
                 />

@@ -1,9 +1,9 @@
 'use client'
 
+import { Photo } from '@/components/ui/Photo'
 import { formatEuro } from '@/lib/catalog'
 import { useCart } from '@/lib/cart-client'
 import { useLocale } from '@/i18n/LocaleProvider'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 
@@ -50,7 +50,7 @@ export function ProductDesk({ product, related }: { product: Product; related: P
         <div>
           <div className="shell">
             <div className="relative min-h-[480px] overflow-hidden rounded-[1.05rem]">
-              <Image src={shot} alt="" fill className="object-cover" sizes="55vw" priority />
+              <Photo src={shot} alt="" className="object-cover" sizes="55vw" priority />
             </div>
           </div>
           {gallery.length > 1 ? (
@@ -62,7 +62,7 @@ export function ProductDesk({ product, related }: { product: Product; related: P
                   className={`relative h-20 overflow-hidden rounded-lg ${shot === url ? 'ring-2 ring-[#ff7a00]' : ''}`}
                   onClick={() => setShot(url)}
                 >
-                  <Image src={url} alt="" fill className="object-cover" sizes="120px" />
+                  <Photo src={url} alt="" className="object-cover" sizes="120px" />
                 </button>
               ))}
             </div>
@@ -136,7 +136,7 @@ export function ProductDesk({ product, related }: { product: Product; related: P
             {related.map((item) => (
               <Link key={item.slug} href={`/products/${item.slug}`} className="card">
                 <div className="relative h-44 overflow-hidden">
-                  <Image src={item.imageUrl} alt="" fill className="object-cover" sizes="30vw" />
+                  <Photo src={item.imageUrl} alt="" className="object-cover" sizes="30vw" />
                 </div>
                 <div className="p-3">
                   <p className="text-[11px] text-[#ff7a00]">{item.brand}</p>

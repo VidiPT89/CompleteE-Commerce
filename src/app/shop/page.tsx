@@ -1,4 +1,4 @@
-import { ShopDesk } from '@/components/ShopDesk'
+import { ShopDesk } from '@/components/shop/ShopDesk'
 
 export default async function ShopPage({
   searchParams,

@@ -4,7 +4,7 @@
 
 [🐞 Report Bug](https://github.com/VidiPT89/CompleteE-Commerce/issues) · [✨ Request Feature](https://github.com/VidiPT89/CompleteE-Commerce/issues)
 
-FORJA is a Next.js shop built like a small lab. The catalogue is organised into collections (film, cameras, optics, darkroom, prints). Each product has a photographic gallery, finish and format variants, SKU and stock. The cart lives in PostgreSQL behind a cookie. Checkout collects a shipping address and pays with Stripe test cards or a PIX payload. Images go to Amazon S3 or Cloudinary when those keys are set; otherwise they stay on disk. Mail goes through Resend when configured, or into an `EmailLog` table. The UI is European Portuguese / English, with the language toggle remembered in `localStorage`.
+FORJA is a Next.js shop built like a small lab for photojournalism, street and sport. The catalogue is organised into collections (street, sports, reportage, cameras, optics, film). Brands on the shelf include Canon, Nikon, Fujifilm, Leica, Sigma, Ricoh, Kodak and Ilford, with telephotos such as a 400 mm f/2.8 and a 180-400. Each product has a photographic gallery stored in `public/photos`, finish and format variants, SKU and stock. The cart lives in PostgreSQL behind a cookie. Checkout collects a shipping address and pays with Stripe test cards or a PIX payload. Extra uploads go to Amazon S3 or Cloudinary when those keys are set. Mail goes through Resend when configured, or into an `EmailLog` table. The UI is European Portuguese / English, with the language toggle remembered in `localStorage`.
 
 ## ✨ Main Features
 
@@ -48,9 +48,20 @@ CompleteE-Commerce/
 ├── prisma/
 │   ├── schema.prisma
 │   └── seed.ts
+├── public/photos/          # local catalogue photographs
 ├── src/
-│   ├── app/
+│   ├── app/                # routes and API
 │   ├── components/
+│   │   ├── admin/
+│   │   ├── atelier/
+│   │   ├── cart/
+│   │   ├── checkout/
+│   │   ├── home/
+│   │   ├── layout/
+│   │   ├── product/
+│   │   ├── shop/
+│   │   └── ui/
+│   ├── data/catalog.ts     # collections and products
 │   ├── i18n/
 │   └── lib/
 ├── tests/

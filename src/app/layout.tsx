@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Barlow_Condensed, Karla } from 'next/font/google'
-import { Providers } from '@/components/Providers'
-import { SiteChrome } from '@/components/SiteChrome'
+import { Providers } from '@/components/layout/Providers'
+import { SiteChrome } from '@/components/layout/SiteChrome'
 import './globals.css'
 
 const display = Barlow_Condensed({

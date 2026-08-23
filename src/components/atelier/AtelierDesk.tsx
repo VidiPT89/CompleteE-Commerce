@@ -1,7 +1,7 @@
 'use client'
 
+import { Photo } from '@/components/ui/Photo'
 import { useLocale } from '@/i18n/LocaleProvider'
-import Image from 'next/image'
 import Link from 'next/link'
 
 export function AtelierDesk() {
@@ -19,13 +19,7 @@ export function AtelierDesk() {
       </div>
       <div className="shell">
         <div className="relative min-h-[420px] overflow-hidden rounded-[1.05rem]">
-          <Image
-            src="https://images.unsplash.com/photo-1478720568477-1520f6b5d3d4?auto=format&fit=crop&w=1600&q=80"
-            alt=""
-            fill
-            className="object-cover"
-            sizes="50vw"
-          />
+          <Photo src="/photos/lab.jpg" alt="" className="object-cover" sizes="50vw" />
         </div>
       </div>
     </div>

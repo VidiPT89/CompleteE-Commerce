@@ -1,5 +1,6 @@
 'use client'
 
+import { readJson } from '@/lib/http'
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 
 export type CartLine = {
@@ -33,9 +34,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const refresh = useCallback(async () => {
     const res = await fetch('/api/cart')
-    if (!res.ok) return
-    const json = (await res.json()) as CartShape
-    setData({ items: json.items, totalCents: json.totalCents, count: json.count })
+    const json = await readJson<CartShape>(res, { items: [], totalCents: 0, count: 0 })
+    setData({ items: json.items ?? [], totalCents: json.totalCents ?? 0, count: json.count ?? 0 })
   }, [])
 
   useEffect(() => {

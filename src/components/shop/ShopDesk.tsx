@@ -1,8 +1,9 @@
 'use client'
 
+import { Photo } from '@/components/ui/Photo'
 import { formatEuro } from '@/lib/catalog'
+import { readJson } from '@/lib/http'
 import { useLocale } from '@/i18n/LocaleProvider'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 
@@ -23,13 +24,20 @@ export function ShopDesk({ initialCollection = '' }: { initialCollection?: strin
   const { t, locale } = useLocale()
   const [q, setQ] = useState('')
   const [collection, setCollection] = useState(initialCollection)
+
+  useEffect(() => {
+    setCollection(initialCollection)
+  }, [initialCollection])
   const [finish, setFinish] = useState('')
   const [format, setFormat] = useState('')
   const [products, setProducts] = useState<Product[]>([])
   const [collections, setCollections] = useState<Collection[]>([])
 
   useEffect(() => {
-    void fetch('/api/collections').then(async (res) => setCollections((await res.json()) as Collection[]))
+    void fetch('/api/collections').then(async (res) => {
+      const data = await readJson<Collection[]>(res, [])
+      setCollections(Array.isArray(data) ? data : [])
+    })
   }, [])
 
   useEffect(() => {
@@ -38,7 +46,10 @@ export function ShopDesk({ initialCollection = '' }: { initialCollection?: strin
     if (collection) params.set('collection', collection)
     if (finish) params.set('finish', finish)
     if (format) params.set('format', format)
-    void fetch(`/api/products?${params}`).then(async (res) => setProducts((await res.json()) as Product[]))
+    void fetch(`/api/products?${params}`).then(async (res) => {
+      const data = await readJson<Product[]>(res, [])
+      setProducts(Array.isArray(data) ? data : [])
+    })
   }, [q, collection, finish, format])
 
   const finishes = useMemo(
@@ -105,10 +116,9 @@ export function ShopDesk({ initialCollection = '' }: { initialCollection?: strin
           return (
             <Link key={product.id} href={`/products/${product.slug}`} className="card group">
               <div className="relative h-72 overflow-hidden">
-                <Image
+                <Photo
                   src={product.imageUrl}
                   alt={locale === 'en' ? product.nameEn : product.name}
-                  fill
                   className="object-cover transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
                   sizes="33vw"
                 />

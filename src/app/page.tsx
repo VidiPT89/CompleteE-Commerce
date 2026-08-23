@@ -1,4 +1,4 @@
-import { HomeDesk } from '@/components/HomeDesk'
+import { HomeDesk } from '@/components/home/HomeDesk'
 
 export default function HomePage() {
   return <HomeDesk />
