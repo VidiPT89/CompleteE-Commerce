@@ -50,7 +50,6 @@ export type Dictionary = {
   shipping: string
   payment: string
   related: string
-  edition: string
   labCopy: string
 }
 
@@ -106,7 +105,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
     shipping: 'Envio',
     payment: 'Pagamento',
     related: 'Na mesma colecção',
-    edition: 'Edição',
     labCopy:
       'A FORJA é um laboratório pequeno em Cascais: bancada de revelação, arquivo de negativos e uma prateleira de material escolhido à mão. Cada corpo passa pela revisão. Cada prova sai com margem e lápis.',
   },
@@ -161,7 +159,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
     shipping: 'Shipping',
     payment: 'Payment',
     related: 'In the same collection',
-    edition: 'Edition',
     labCopy:
       'FORJA is a small lab in Cascais: a developing bench, a negative archive and a shelf of material chosen by hand. Every body is serviced. Every print leaves with a margin and a pencil.',
   },
