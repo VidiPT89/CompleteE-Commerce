@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/VidiPT89/CompleteE-Commerce/actions/workflows/ci.yml/badge.svg)](https://github.com/VidiPT89/CompleteE-Commerce/actions/workflows/ci.yml)
 
-**🌐 Live demo:** [complete-e-commerce.vercel.app](https://complete-e-commerce.vercel.app) · Browse the catalog, fill a cart and check out: without a Stripe key the order completes in the demo. The sample data resets on every deploy; the admin desk stays private.
+**🌐 Live demo:** [forja.ividi.dev](https://forja.ividi.dev) · Browse the catalog, fill a cart and check out: without a Stripe key the order completes in the demo. The sample data resets on every deploy; the admin desk stays private.
 
 [🐞 Report Bug](https://github.com/VidiPT89/CompleteE-Commerce/issues) · [✨ Request Feature](https://github.com/VidiPT89/CompleteE-Commerce/issues)
 
