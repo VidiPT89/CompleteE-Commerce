@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { matchesCatalog, nextOrderNumber } from '../src/lib/catalog'
+import { formatEuro, matchesCatalog, nextOrderNumber } from '../src/lib/catalog'
 
 const trix = {
   slug: 'tri-x-400',
@@ -33,4 +33,33 @@ test('filters by collection, finish, format and price', () => {
 test('order numbers stay sequential', () => {
   assert.equal(nextOrderNumber(1), 'FORJA-00001')
   assert.equal(nextOrderNumber(12), 'FORJA-00012')
+})
+
+test('finish, format and price must all hold on the same variant', () => {
+  // 36exp costs 12,90 €; only the 24exp is under 11 €, so "36exp up to 11 €" finds nothing.
+  assert.equal(matchesCatalog(trix, { format: '36exp', maxCents: 1100 }), false)
+  assert.equal(matchesCatalog(trix, { format: '24exp', maxCents: 1100 }), true)
+  assert.equal(matchesCatalog(trix, { finish: 'yellow-box', format: '120' }), false)
+})
+
+test('price limits are inclusive', () => {
+  assert.equal(matchesCatalog(trix, { minCents: 1290 }), true)
+  assert.equal(matchesCatalog(trix, { maxCents: 1090 }), true)
+  assert.equal(matchesCatalog(trix, { minCents: 1291 }), false)
+})
+
+test('search ignores case and surrounding spaces, and reads the description', () => {
+  assert.equal(matchesCatalog(trix, { q: '  KODAK ' }), true)
+  assert.equal(matchesCatalog(trix, { q: 'street' }), true)
+  assert.equal(matchesCatalog(trix, { q: '   ' }), true)
+})
+
+test('category must match exactly', () => {
+  assert.equal(matchesCatalog(trix, { category: 'film' }), true)
+  assert.equal(matchesCatalog(trix, { category: 'cameras' }), false)
+})
+
+test('prices follow the shopper language', () => {
+  assert.match(formatEuro(1290, 'pt'), /^12,90\s€$/u)
+  assert.equal(formatEuro(1290, 'en'), '€12.90')
 })
