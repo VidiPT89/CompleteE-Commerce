@@ -24,10 +24,11 @@ export function ShopDesk({ initialCollection = '' }: { initialCollection?: strin
   const { t, locale } = useLocale()
   const [q, setQ] = useState('')
   const [collection, setCollection] = useState(initialCollection)
-
-  useEffect(() => {
+  const [seenInitial, setSeenInitial] = useState(initialCollection)
+  if (seenInitial !== initialCollection) {
+    setSeenInitial(initialCollection)
     setCollection(initialCollection)
-  }, [initialCollection])
+  }
   const [finish, setFinish] = useState('')
   const [format, setFormat] = useState('')
   const [products, setProducts] = useState<Product[]>([])

@@ -29,18 +29,32 @@ type Ctx = CartShape & {
 
 const CartContext = createContext<Ctx | null>(null)
 
+async function fetchCart(): Promise<CartShape> {
+  const res = await fetch('/api/cart')
+  const json = await readJson<CartShape>(res, { items: [], totalCents: 0, count: 0 })
+  return { items: json.items ?? [], totalCents: json.totalCents ?? 0, count: json.count ?? 0 }
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<CartShape>({ items: [], totalCents: 0, count: 0 })
 
   const refresh = useCallback(async () => {
-    const res = await fetch('/api/cart')
-    const json = await readJson<CartShape>(res, { items: [], totalCents: 0, count: 0 })
-    setData({ items: json.items ?? [], totalCents: json.totalCents ?? 0, count: json.count ?? 0 })
+    setData(await fetchCart())
   }, [])
 
   useEffect(() => {
-    void refresh()
-  }, [refresh])
+    let ignore = false
+    fetchCart()
+      .then((cart) => {
+        if (!ignore) setData(cart)
+      })
+      .catch(() => {
+        /* offline: keep the empty cart */
+      })
+    return () => {
+      ignore = true
+    }
+  }, [])
 
   const value = useMemo<Ctx>(
     () => ({

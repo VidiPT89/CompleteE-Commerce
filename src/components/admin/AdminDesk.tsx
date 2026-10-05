@@ -16,6 +16,16 @@ type Order = {
   status: string
 }
 
+type AdminData = { ok: false } | { ok: true; products: Product[]; orders: Order[] }
+
+async function fetchAdmin(): Promise<AdminData> {
+  const session = await fetch('/api/admin/session')
+  const json = (await session.json()) as { ok: boolean }
+  if (!json.ok) return { ok: false }
+  const [p, o] = await Promise.all([fetch('/api/admin/products'), fetch('/api/admin/orders')])
+  return { ok: true, products: (await p.json()) as Product[], orders: (await o.json()) as Order[] }
+}
+
 export function AdminDesk() {
   const { t, locale } = useLocale()
   const [ok, setOk] = useState(false)
@@ -35,18 +45,29 @@ export function AdminDesk() {
     imageUrl: '',
   })
 
+  function apply(admin: AdminData) {
+    setOk(admin.ok)
+    if (!admin.ok) return
+    setProducts(admin.products)
+    setOrders(admin.orders)
+  }
+
   async function load() {
-    const session = await fetch('/api/admin/session')
-    const json = (await session.json()) as { ok: boolean }
-    setOk(json.ok)
-    if (!json.ok) return
-    const [p, o] = await Promise.all([fetch('/api/admin/products'), fetch('/api/admin/orders')])
-    setProducts((await p.json()) as Product[])
-    setOrders((await o.json()) as Order[])
+    apply(await fetchAdmin())
   }
 
   useEffect(() => {
-    void load()
+    let ignore = false
+    fetchAdmin()
+      .then((admin) => {
+        if (!ignore) apply(admin)
+      })
+      .catch(() => {
+        /* offline: stay on the sign-in form */
+      })
+    return () => {
+      ignore = true
+    }
   }, [])
 
   if (!ok) {

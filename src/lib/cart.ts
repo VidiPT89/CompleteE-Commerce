@@ -5,7 +5,7 @@ export const CART_COOKIE = 'forja-cart'
 
 export async function getCartId() {
   const jar = await cookies()
-  let id = jar.get(CART_COOKIE)?.value
+  const id = jar.get(CART_COOKIE)?.value
   if (id) {
     const existing = await prisma.cart.findUnique({ where: { id } })
     if (existing) return id
